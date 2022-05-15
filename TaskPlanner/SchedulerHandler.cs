@@ -20,7 +20,8 @@ namespace TaskPlanner
         List<Label> timeSlotsLabels = new List<Label>();
         
         List<Task> tasks = new List<Task>();
-        Dictionary<Task, Label> taskToLabel = new Dictionary<Task, Label>();    
+        Dictionary<Task, Label> taskToLabel = new Dictionary<Task, Label>();
+        public List<List<Label>> emptyLabels = new List<List<Label>>();
 
         public SchedulerHandler()
         {
@@ -100,6 +101,23 @@ namespace TaskPlanner
                     break;
                 }
             }
+        }
+
+        internal Task getTaskFromLabel(Label label)
+        {
+            foreach(var task in tasks)
+            {
+                if(task.getTitle() == label.Text)
+                {
+                    return task;
+                }
+            }
+            return null;
+        }
+
+        public Label getEmptyLabel(int x, int y)
+        {
+            return emptyLabels[y][x];
         }
     }
 }

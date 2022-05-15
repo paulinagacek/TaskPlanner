@@ -15,6 +15,7 @@ namespace TestTaskPlanner
         public TaskPlannerForm()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
     }
 }
