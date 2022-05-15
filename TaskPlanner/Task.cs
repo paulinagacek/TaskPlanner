@@ -53,7 +53,7 @@ namespace TaskPlanner
         {
             categoryToColor["Job"] = Color.LightSalmon;
             categoryToColor["House"] = Color.Beige;
-            categoryToColor["Hobby"] = Color.Lime;
+            categoryToColor["Hobby"] = Color.AliceBlue;
             categoryToColor["Health"] = Color.Magenta;
             categoryToColor["Sport"] = Color.Yellow;
         }
@@ -61,6 +61,36 @@ namespace TaskPlanner
         public static List<string> getCategories()
         {
             return categories;
+        }
+
+        public string getTitle()
+        {
+            return Title;
+        }
+
+        public string getCategory()
+        {
+            return Category;
+        }
+
+        public int getWeekdayId()
+        {
+            return Weekday;
+        }
+
+        public int getStartSlotId()
+        {
+            return TimeSlotStart;
+        }
+
+        public int getEndSlotId()
+        {
+            return TimeSlotStop;
+        }
+
+        public static Color getColorFromCategory(string category)
+        {
+            return categoryToColor[category];
         }
     }
 }

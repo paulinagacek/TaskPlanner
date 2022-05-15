@@ -21,7 +21,9 @@ namespace TaskPlanner
         "11:30 PM"};
         List<Label> weekdaysLabels = new List<Label>();
         List<Label> timeSlotsLabels = new List<Label>();
+        
         List<Task> tasks = new List<Task>();
+        List<Label> taskLabels = new List<Label>();
 
         public SchedulerHandler()
         {
@@ -70,6 +72,10 @@ namespace TaskPlanner
         public void AddTask(Task task)
         {
             tasks.Add(task);
+            Label label = new Label();
+            label.Text = task.getTitle();
+            taskLabels.Add(label);
+            WeeklyScheduler.instance.drawTask(task);
         }
 
         public List<string> getWeekdays()

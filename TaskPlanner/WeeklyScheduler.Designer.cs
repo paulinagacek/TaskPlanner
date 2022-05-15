@@ -67,8 +67,7 @@
             this.pnl_timetable.Name = "pnl_timetable";
             this.pnl_timetable.Size = new System.Drawing.Size(1993, 1084);
             this.pnl_timetable.TabIndex = 2;
-            this.pnl_timetable.Scroll += new System.Windows.Forms.ScrollEventHandler(this.pnl_timetable_Scroll);
-            this.pnl_timetable.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_timetable_Paint);
+           
             // 
             // tbl_time_table
             // 
