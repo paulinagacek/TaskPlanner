@@ -37,7 +37,7 @@ namespace TaskPlanner
             label.Click += new EventHandler(this.OnTaskLabelClick);
 
             tbl_time_table.Controls.Add(label, task.getWeekdayId(), task.getStartSlotId());
-            tbl_time_table.SetRowSpan(label, task.getEndSlotId() - task.getStartSlotId() + 1);
+            tbl_time_table.SetRowSpan(label, task.getEndSlotId() - task.getStartSlotId());
             schedulerHandler.AddTaskLabel(task, label);
         }
 

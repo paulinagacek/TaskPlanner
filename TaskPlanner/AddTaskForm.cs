@@ -7,17 +7,13 @@ namespace TaskPlanner
     public partial class AddTaskForm : Form
     {
         SchedulerHandler schedulerHandler;
-        string Title = null;
-        string Category = null;
-        int dayId = 0;
-        int startId = 0;
-        int endId = 0;
+        Task addedTask = new Task();
+
         public AddTaskForm(SchedulerHandler schedulerHandler)
         {
             InitializeComponent();
             this.schedulerHandler = schedulerHandler;
             InitialiseCmbBoxes();
-            System.Console.WriteLine("New object");
         }
         private void InitialiseCmbBoxes()
         {
@@ -48,14 +44,16 @@ namespace TaskPlanner
         }
         private bool AreAllFieldsSelected()
         {
-            if (Title == null || Title.Length == 0 || Category == null || Category.Length == 0)
+            if (addedTask.getTitle() == null || addedTask.getTitle().Length == 0)
             {
-                System.Console.WriteLine("napis null");
                 return false;
             }
-            if (startId == 0 || endId == 0 || dayId == 0)
+            if (addedTask.getCategory() == null || addedTask.getCategory().Length == 0)
             {
-                System.Console.WriteLine("id 0");
+                return false;
+            }
+            if (addedTask.getEndSlotId() == 0 || addedTask.getStartSlotId() == 0 || addedTask.getWeekdayId() == 0)
+            {
                 return false;
             }
             return true;
@@ -63,37 +61,46 @@ namespace TaskPlanner
 
         private void txtBox_taskTitle_TextChanged_1(object sender, EventArgs e)
         {
-            Title = txtBox_taskTitle.Text;
+            addedTask.setTitle(txtBox_taskTitle.Text);
         }
 
         private void cmbBox_categories_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            Category = Task.getCategories()[cmbBox_categories.SelectedIndex];
-            System.Console.WriteLine(Category);
+            addedTask.setCategory(Task.getCategories()[cmbBox_categories.SelectedIndex]);
         }
 
         private void cmbBox_day_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dayId = cmbBox_day.SelectedIndex + 1;
+            addedTask.setWeekdayId(cmbBox_day.SelectedIndex + 1);
         }
 
         private void cmbBox_start_SelectedIndexChanged(object sender, EventArgs e)
         {
-            startId = cmbBox_start.SelectedIndex + 1;
+            addedTask.setStartId(cmbBox_start.SelectedIndex + 1);
         }
 
         private void cmbBox_end_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            endId = cmbBox_end.SelectedIndex + 1;
+            addedTask.setEndId(cmbBox_end.SelectedIndex + 1);
         }
 
         private void btn_saveTask_Click_1(object sender, EventArgs e)
         {
             if (AreAllFieldsSelected())
             {
-                Task task = new Task(Title, Category, dayId, startId, endId);
-                schedulerHandler.AddTask(task);
-                this.Close();
+                if(addedTask.getStartSlotId() < addedTask.getEndSlotId())
+                {
+                    schedulerHandler.AddTask(addedTask);
+                    this.Close();
+                }
+                else if (addedTask.getStartSlotId() == addedTask.getEndSlotId())
+                {
+                    MessageBox.Show("Task cannot take 0 min");
+                }
+                else
+                {
+                    MessageBox.Show("Task cannot start after it ends");
+                }
             }
             else
             {

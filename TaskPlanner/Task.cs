@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskPlanner
 {
@@ -17,6 +14,8 @@ namespace TaskPlanner
 
         static List<string> categories = new List<string>() { "Job", "House", "Hobby", "Health", "Sport" };
         static Dictionary<string, Color> categoryToColor = new Dictionary<string, Color>();
+
+        public Task() { }
 
         public Task(string title, string category, int weekDay, int start, int end)
         {
@@ -49,7 +48,7 @@ namespace TaskPlanner
             
         }
 
-        private void InitialiseCategoriesColors()
+        public static void InitialiseCategoriesColors()
         {
             categoryToColor["Job"] = Color.LightSalmon;
             categoryToColor["House"] = Color.Beige;
@@ -90,7 +89,33 @@ namespace TaskPlanner
 
         public static Color getColorFromCategory(string category)
         {
+            System.Console.WriteLine(category);
             return categoryToColor[category];
+        }
+
+        public void setTitle(string title)
+        {
+            Title = title;
+        }
+
+        public void setCategory(string category)
+        {
+            Category = category;
+        }
+
+        public void setWeekdayId(int dayId)
+        {
+            Weekday = dayId;
+        }
+
+        public void setStartId(int startId)
+        {
+            TimeSlotStart = startId;
+        }
+
+        public void setEndId(int endId)
+        {
+            TimeSlotStop = endId;
         }
     }
 }

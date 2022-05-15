@@ -30,9 +30,9 @@
         {
             this.lbl_weeklyscheduler = new System.Windows.Forms.Label();
             this.pnl_Title = new System.Windows.Forms.Panel();
+            this.btn_add_task = new System.Windows.Forms.Button();
             this.pnl_timetable = new System.Windows.Forms.Panel();
             this.tbl_time_table = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_add_task = new System.Windows.Forms.Button();
             this.pnl_Title.SuspendLayout();
             this.pnl_timetable.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +57,20 @@
             this.pnl_Title.Size = new System.Drawing.Size(1986, 100);
             this.pnl_Title.TabIndex = 1;
             // 
+            // btn_add_task
+            // 
+            this.btn_add_task.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btn_add_task.FlatAppearance.BorderSize = 0;
+            this.btn_add_task.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_add_task.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_add_task.Location = new System.Drawing.Point(1821, -1);
+            this.btn_add_task.Name = "btn_add_task";
+            this.btn_add_task.Size = new System.Drawing.Size(86, 98);
+            this.btn_add_task.TabIndex = 1;
+            this.btn_add_task.Text = "+";
+            this.btn_add_task.UseVisualStyleBackColor = false;
+            this.btn_add_task.Click += new System.EventHandler(this.btn_add_task_Click);
+            // 
             // pnl_timetable
             // 
             this.pnl_timetable.AutoScroll = true;
@@ -67,13 +81,12 @@
             this.pnl_timetable.Name = "pnl_timetable";
             this.pnl_timetable.Size = new System.Drawing.Size(1993, 1084);
             this.pnl_timetable.TabIndex = 2;
-           
             // 
             // tbl_time_table
             // 
             this.tbl_time_table.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tbl_time_table.BackColor = System.Drawing.SystemColors.Control;
-            this.tbl_time_table.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetPartial;
+            this.tbl_time_table.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tbl_time_table.ColumnCount = 8;
             this.tbl_time_table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.772491F));
             this.tbl_time_table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.92658F));
@@ -138,20 +151,6 @@
             this.tbl_time_table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tbl_time_table.Size = new System.Drawing.Size(1942, 2686);
             this.tbl_time_table.TabIndex = 3;
-            // 
-            // btn_add_task
-            // 
-            this.btn_add_task.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btn_add_task.FlatAppearance.BorderSize = 0;
-            this.btn_add_task.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_add_task.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_add_task.Location = new System.Drawing.Point(1821, -1);
-            this.btn_add_task.Name = "btn_add_task";
-            this.btn_add_task.Size = new System.Drawing.Size(86, 98);
-            this.btn_add_task.TabIndex = 1;
-            this.btn_add_task.Text = "+";
-            this.btn_add_task.UseVisualStyleBackColor = false;
-            this.btn_add_task.Click += new System.EventHandler(this.btn_add_task_Click);
             // 
             // WeeklyScheduler
             // 
