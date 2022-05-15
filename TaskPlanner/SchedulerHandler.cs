@@ -23,7 +23,7 @@ namespace TaskPlanner
         List<Label> timeSlotsLabels = new List<Label>();
         
         List<Task> tasks = new List<Task>();
-        List<Label> taskLabels = new List<Label>();
+        Dictionary<Task, Label> taskToLabel = new Dictionary<Task, Label>();    
 
         public SchedulerHandler()
         {
@@ -72,10 +72,12 @@ namespace TaskPlanner
         public void AddTask(Task task)
         {
             tasks.Add(task);
-            Label label = new Label();
-            label.Text = task.getTitle();
-            taskLabels.Add(label);
             WeeklyScheduler.instance.drawTask(task);
+        }
+
+        public void AddTaskLabel(Task task, Label label)
+        {
+            taskToLabel.Add(task, label);
         }
 
         public List<string> getWeekdays()
@@ -86,6 +88,20 @@ namespace TaskPlanner
         public List<string> getTimeSlots()
         {
             return timeSlots;  
+        }
+
+        public void deleteTaskAndAssociatedLabel(Label label)
+        {
+            string taskName = label.Text;
+            foreach(var task in tasks)
+            {
+                if(task.getTitle() == taskName)
+                {
+                    taskToLabel.Remove(task);
+                    tasks.Remove(task);
+                    break;
+                }
+            }
         }
     }
 }
