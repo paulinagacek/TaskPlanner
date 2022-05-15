@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SchedulerHandler.cs" />
     <Compile Include="WeeklyScheduler.cs">
       <SubType>UserControl</SubType>
     </Compile>

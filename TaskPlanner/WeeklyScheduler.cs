@@ -4,10 +4,20 @@ namespace TaskPlanner
 {
     public partial class WeeklyScheduler: UserControl
     {
+        SchedulerHandler schedulerHandler = new SchedulerHandler();
+        int NrOfTimeSlots = 48;
         public WeeklyScheduler()
         {
             InitializeComponent();
-            //pnl_timetable.VerticalScroll.
+            for(int i = 1; i <= 7; i++)
+            {
+                tbl_time_table.Controls.Add(schedulerHandler.getWeekdayLabel(i-1), i, 0);
+            }
+            for(int i = 1; i < NrOfTimeSlots + 1; i++)
+            {
+                tbl_time_table.Controls.Add(schedulerHandler.getTimeSlotLabel(i - 1), 0, i);
+            }
+
         }
 
         private void pnl_timetable_Paint(object sender, PaintEventArgs e)
