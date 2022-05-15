@@ -38,8 +38,8 @@ namespace TaskPlanner
                     label.Dock = DockStyle.Fill;
                     label.BackColor = Color.Transparent;
                     label.Click += new EventHandler(this.OnEmptykLabelClick);
-                    label.MouseHover += new EventHandler(this.OnMouseHover);
-                    label.MouseLeave += new EventHandler(this.OnMouseLeave);
+                    //label.MouseHover += new EventHandler(this.OnMouseHover);
+                    //label.MouseLeave += new EventHandler(this.OnMouseLeave);
                     tbl_time_table.Controls.Add(label, j, i);
                     emptyLabelRow.Add(label);
                 }
