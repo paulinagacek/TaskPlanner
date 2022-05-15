@@ -40,6 +40,11 @@ namespace TaskPlanner
             }
         }
 
+        internal string getTimeSlotString(int slotId)
+        {
+            return timeSlots[slotId];
+        }
+
         private void InitialiseTimeSLots()
         {
             foreach(var time in timeSlots)
@@ -48,6 +53,11 @@ namespace TaskPlanner
                 timeLabel.Text = time.ToString();
                 timeSlotsLabels.Add(timeLabel);
             }
+        }
+
+        public string getDayString(int dayId)
+        {
+            return weekDays[dayId];
         }
 
         public Label getWeekdayLabel(int index)

@@ -8,11 +8,23 @@ namespace TaskPlanner
     {
         SchedulerHandler schedulerHandler;
         Task addedTask = new Task();
+        int predefinedStartId = 0;
+        int weekDayId = 0;
 
         public AddTaskForm(SchedulerHandler schedulerHandler)
         {
             InitializeComponent();
             this.schedulerHandler = schedulerHandler;
+            InitialiseCmbBoxes();
+        }
+
+        public AddTaskForm(SchedulerHandler schedulerHandler, int dayId, int StartId)
+        {
+            InitializeComponent();
+            this.schedulerHandler = schedulerHandler;
+            
+            predefinedStartId = StartId;
+            weekDayId = dayId;
             InitialiseCmbBoxes();
         }
         private void InitialiseCmbBoxes()
@@ -41,6 +53,13 @@ namespace TaskPlanner
             cmbBox_day.Text = "";
             cmbBox_start.Text = "";
             cmbBox_end.Text = "";
+
+            if(predefinedStartId != 0)
+            {
+                cmbBox_start.Text = schedulerHandler.getTimeSlotString(predefinedStartId-1);
+                cmbBox_end.Text = schedulerHandler.getTimeSlotString(predefinedStartId);
+                cmbBox_day.Text = schedulerHandler.getDayString(weekDayId - 1);
+            }
         }
         private bool AreAllFieldsSelected()
         {

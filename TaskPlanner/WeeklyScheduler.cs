@@ -102,7 +102,41 @@ namespace TaskPlanner
         private void OnEmptykLabelClick(object sender, EventArgs e)
         {
             Label clickedLabel = sender as Label;
-            MessageBox.Show("Click");
+            int startId = getStartSlotIdFromEptyLabel(clickedLabel);
+            int weekDayId = getWeekdayIdFromEptyLabel(clickedLabel);
+            AddTaskForm addTaskForm = new AddTaskForm(schedulerHandler, weekDayId, startId);
+            System.Console.WriteLine("Start id: " + startId);
+            addTaskForm.Show();
+        }
+
+        private int getStartSlotIdFromEptyLabel(Label label)
+        {
+            for(int i = 0; i < schedulerHandler.emptyLabels.Count; i++)
+            {
+                for(int j = 0; j < schedulerHandler.emptyLabels[i].Count; j++)
+                {
+                    if(schedulerHandler.emptyLabels[i][j] == label)
+                    {
+                        return i + 1;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private int getWeekdayIdFromEptyLabel(Label label)
+        {
+            for (int i = 0; i < schedulerHandler.emptyLabels.Count; i++)
+            {
+                for (int j = 0; j < schedulerHandler.emptyLabels[i].Count; j++)
+                {
+                    if (schedulerHandler.emptyLabels[i][j] == label)
+                    {
+                        return j + 1;
+                    }
+                }
+            }
+            return -1;
         }
 
         private void OnMouseHover(object sender, EventArgs e)
@@ -110,6 +144,7 @@ namespace TaskPlanner
             Label clickedLabel = sender as Label;
             clickedLabel.BackColor = Color.White;
             clickedLabel.Text = "+";
+            clickedLabel.Font = new Font("Arial", 12);
         }
 
         private void OnMouseLeave(object sender, EventArgs e)
