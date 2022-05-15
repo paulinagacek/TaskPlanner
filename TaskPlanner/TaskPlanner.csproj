@@ -42,7 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTaskForm.Designer.cs">
+      <DependentUpon>AddTaskForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SchedulerHandler.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="WeeklyScheduler.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -53,6 +60,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddTaskForm.resx">
+      <DependentUpon>AddTaskForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WeeklyScheduler.resx">
       <DependentUpon>WeeklyScheduler.cs</DependentUpon>
     </EmbeddedResource>

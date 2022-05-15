@@ -29,5 +29,11 @@ namespace TaskPlanner
         {
             
         }
+
+        private void btn_add_task_Click(object sender, System.EventArgs e)
+        {
+            AddTaskForm addTaskForm = new AddTaskForm(schedulerHandler);
+            addTaskForm.Show();
+        }
     }
 }
