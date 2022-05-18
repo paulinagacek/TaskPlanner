@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TaskPlanner
@@ -152,6 +153,20 @@ namespace TaskPlanner
             Label clickedLabel = sender as Label;
             clickedLabel.BackColor = Color.Transparent;
             clickedLabel.Text = "";
+        }
+
+        private void WeeklyScheduler_Load(object sender, EventArgs e)
+        {
+            System.Threading.TimerCallback callback = new TimerCallback(schedulerHandler.ProcessTimerEvent);
+            DayOfWeek wk = DateTime.Today.DayOfWeek;
+            schedulerHandler.currentDayOfWeek = wk;
+
+            var dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 0, 0);
+
+            if (DateTime.Now < dt)
+            {
+                var timer = new System.Threading.Timer(callback, null, dt - DateTime.Now, TimeSpan.FromDays(7));
+            }
         }
     }
 }

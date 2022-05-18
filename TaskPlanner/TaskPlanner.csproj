@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="SchedulerHandler.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="WeeklyScheduler.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -160,6 +160,7 @@
             this.Controls.Add(this.pnl_Title);
             this.Name = "WeeklyScheduler";
             this.Size = new System.Drawing.Size(1993, 1194);
+            this.Load += new System.EventHandler(this.WeeklyScheduler_Load);
             this.pnl_Title.ResumeLayout(false);
             this.pnl_Title.PerformLayout();
             this.pnl_timetable.ResumeLayout(false);

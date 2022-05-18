@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TaskPlanner.Utils;
 
 namespace TaskPlanner
 {
     public class SchedulerHandler
     {
-        List<String> weekDays = new List<String>() { "Monday", "Tuesday", "Wednesday", 
-            "Thursday", "Friday", "Saturday", "Sunday" };
         List<String> timeSlots = new List<String>() { "12 AM","0:30 AM", "1 AM", "1:30 AM", "2 AM",
         "2:30 AM", "3 AM", "3:30 AM", "4 AM", "4:30 AM", "5AM", "5:30 AM", "6 AM", "6:30 AM",
         "7 AM", "7:30 AM", "8 AM", "8:30 AM", "9 AM", "9:30 AM", "10 AM", "10:30 AM", "11 AM",
@@ -23,6 +22,10 @@ namespace TaskPlanner
         Dictionary<Task, Label> taskToLabel = new Dictionary<Task, Label>();
         public List<List<Label>> emptyLabels = new List<List<Label>>();
 
+        public DayOfWeek currentDayOfWeek = DayOfWeek.Monday;
+        public DateTime currentDateTime = DateTime.Now;
+        public Dictionary<DayOfWeek, HashSet<Task>> WeekdayToSetOfTasks = new Dictionary<DayOfWeek, HashSet<Task>>();
+
         public SchedulerHandler()
         {
             InitialiseWeekdaysLabels();
@@ -32,7 +35,7 @@ namespace TaskPlanner
 
         private void InitialiseWeekdaysLabels()
         {
-            foreach(var day in weekDays)
+            foreach(var day in DateUtils.getWeekdays())
             {
                 Label label = new Label();
                 label.Text = day.ToString();
@@ -57,7 +60,7 @@ namespace TaskPlanner
 
         public string getDayString(int dayId)
         {
-            return weekDays[dayId];
+            return DateUtils.getWeekdays()[dayId];
         }
 
         public Label getWeekdayLabel(int index)
@@ -82,6 +85,21 @@ namespace TaskPlanner
         {
             tasks.Add(task);
             WeeklyScheduler.instance.drawTask(task);
+            AddTaskToWeekdayToTaskSetDict(task);
+        }
+
+        private void AddTaskToWeekdayToTaskSetDict(Task task)
+        {
+            string weekDay = getWeekdays()[task.getWeekdayId() - 1];
+            DayOfWeek dayOfWeek = DateUtils.getDayOfTheWeekFromString(weekDay);
+            if (WeekdayToSetOfTasks.ContainsKey(dayOfWeek)){
+                WeekdayToSetOfTasks[dayOfWeek].Add(task);
+            }
+            else
+            {
+                WeekdayToSetOfTasks.Add(dayOfWeek, new HashSet<Task> { task });
+            }
+            System.Console.WriteLine("Task added on " + dayOfWeek);
         }
 
         public void AddTaskLabel(Task task, Label label)
@@ -91,7 +109,7 @@ namespace TaskPlanner
 
         public List<string> getWeekdays()
         {
-            return weekDays;
+            return DateUtils.getWeekdays();
         }
 
         public List<string> getTimeSlots()
@@ -108,9 +126,12 @@ namespace TaskPlanner
                 {
                     taskToLabel.Remove(task);
                     tasks.Remove(task);
+                    DayOfWeek dayOfWeek = DateUtils.getDayOfTheWeekFromId(task.getWeekdayId());
+                    WeekdayToSetOfTasks[dayOfWeek].Remove(task);
                     break;
                 }
             }
+            
         }
 
         internal Task getTaskFromLabel(Label label)
@@ -128,6 +149,11 @@ namespace TaskPlanner
         public Label getEmptyLabel(int x, int y)
         {
             return emptyLabels[y][x];
+        }
+
+        public void ProcessTimerEvent(object obj)
+        {
+            MessageBox.Show("Hi Its Time");
         }
     }
 }
