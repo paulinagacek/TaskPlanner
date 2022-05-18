@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
+using Timer = System.Threading.Timer;
 
 namespace TaskPlanner
 {
@@ -157,16 +159,30 @@ namespace TaskPlanner
 
         private void WeeklyScheduler_Load(object sender, EventArgs e)
         {
-            System.Threading.TimerCallback callback = new TimerCallback(schedulerHandler.ProcessTimerEvent);
             DayOfWeek wk = DateTime.Today.DayOfWeek;
             schedulerHandler.currentDayOfWeek = wk;
 
-            var dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 0, 0);
 
-            if (DateTime.Now < dt)
-            {
-                var timer = new System.Threading.Timer(callback, null, dt - DateTime.Now, TimeSpan.FromDays(7));
-            }
+            System.Timers.Timer t = new System.Timers.Timer();
+            t.Start();
+            System.Console.WriteLine("Timer started!");
+            t.Interval = 1000;
+            t.Elapsed += OnTimeEvent;
+        }
+
+        private void OnTimeEvent(object sender, ElapsedEventArgs e)
+        {
+            Invoke(new Action(() => {
+                Task task = schedulerHandler.getTaskToRemind(DateTime.Now);
+                if (task != null)
+                {
+                    MessageBox.Show("You have task to do now: " + task.getTitle());
+                }
+                else
+                {
+                    Console.WriteLine("No tasks for: "+ DateTime.Now);
+                }
+            }));
         }
     }
 }

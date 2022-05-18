@@ -99,7 +99,6 @@ namespace TaskPlanner
             {
                 WeekdayToSetOfTasks.Add(dayOfWeek, new HashSet<Task> { task });
             }
-            System.Console.WriteLine("Task added on " + dayOfWeek);
         }
 
         public void AddTaskLabel(Task task, Label label)
@@ -127,7 +126,10 @@ namespace TaskPlanner
                     taskToLabel.Remove(task);
                     tasks.Remove(task);
                     DayOfWeek dayOfWeek = DateUtils.getDayOfTheWeekFromId(task.getWeekdayId());
-                    WeekdayToSetOfTasks[dayOfWeek].Remove(task);
+                    if(WeekdayToSetOfTasks.ContainsKey(dayOfWeek) && WeekdayToSetOfTasks[dayOfWeek].Contains(task))
+                    {
+                        WeekdayToSetOfTasks[dayOfWeek].Remove(task);
+                    }
                     break;
                 }
             }
@@ -151,9 +153,31 @@ namespace TaskPlanner
             return emptyLabels[y][x];
         }
 
-        public void ProcessTimerEvent(object obj)
+        public Task getTaskToRemind(DateTime currentTime)
         {
-            MessageBox.Show("Hi Its Time");
+            if (WeekdayToSetOfTasks.ContainsKey(currentDayOfWeek))
+            {
+                int hour = currentTime.Hour;
+                int minute = currentTime.Minute;
+                foreach(Task task in WeekdayToSetOfTasks[currentDayOfWeek])
+                {
+                    if(hour == (task.getStartSlotId() - 1) / 2)
+                    {
+                        if((minute == 0 && (task.getStartSlotId()-1) %2 == 0)
+                            || (minute == 30 && (task.getStartSlotId()-1) % 2 == 1))
+                        {
+                            WeekdayToSetOfTasks[currentDayOfWeek].Remove(task);
+                            return task;
+                        }
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
         }
+
     }
 }

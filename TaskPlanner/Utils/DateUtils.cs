@@ -16,22 +16,6 @@ namespace TaskPlanner.Utils
         {
             return weekDays;
         }
-        public static DateTime getDateTimeFromString(string date)
-        {
-            bool isPM = Regex.Match(date, @"PM").Success;
-            bool isFull = !Regex.Match(date, @":").Success;
-            if (isFull)
-            {
-                Match m = Regex.Match(date, @"\d+");
-                Group g = m.Groups[0];
-                System.Console.WriteLine(g);
-            }
-            else
-            {
-
-            }
-            return DateTime.Parse(date);
-        }
 
         public static DayOfWeek getDayOfTheWeekFromString(string day)
         {
