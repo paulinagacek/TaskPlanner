@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
-using Timer = System.Threading.Timer;
 
 namespace TaskPlanner
 {
     public partial class WeeklyScheduler : UserControl
     {
         SchedulerHandler schedulerHandler = new SchedulerHandler();
-        int NrOfTimeSlots = 48;
-        int NrOfWeekDays = 7;
         public static WeeklyScheduler instance = null;
         public WeeklyScheduler()
         {
             InitializeComponent();
-            for (int i = 1; i <= NrOfWeekDays; i++)
+            for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
             {
                 tbl_time_table.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
             }
-            for (int i = 1; i < NrOfTimeSlots + 1; i++)
+            for (int i = 1; i < schedulerHandler.getNrOfTimeSlots() + 1; i++)
             {
                 tbl_time_table.Controls.Add(schedulerHandler.getTimeSlotLabel(i - 1), 0, i);
             }
@@ -32,10 +28,10 @@ namespace TaskPlanner
 
         public void InitialiseEmptyLabelsOnGrid()
         {
-            for(int i = 1; i <= NrOfTimeSlots; i++)
+            for(int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
             {
                 List<Label> emptyLabelRow = new List<Label>();
-                for(int j = 1; j <= NrOfWeekDays; j++)
+                for(int j = 1; j <= schedulerHandler.getNrOfDays(); j++)
                 {
                     Label label = new Label();
                     label.Dock = DockStyle.Fill;
@@ -108,7 +104,6 @@ namespace TaskPlanner
             int startId = getStartSlotIdFromEptyLabel(clickedLabel);
             int weekDayId = getWeekdayIdFromEptyLabel(clickedLabel);
             AddTaskForm addTaskForm = new AddTaskForm(schedulerHandler, weekDayId, startId);
-            System.Console.WriteLine("Start id: " + startId);
             addTaskForm.Show();
         }
 
@@ -162,11 +157,9 @@ namespace TaskPlanner
             DayOfWeek wk = DateTime.Today.DayOfWeek;
             schedulerHandler.currentDayOfWeek = wk;
 
-
             System.Timers.Timer t = new System.Timers.Timer();
             t.Start();
-            System.Console.WriteLine("Timer started!");
-            t.Interval = 1000;
+            t.Interval = 1000*60; // one tick per 1min
             t.Elapsed += OnTimeEvent;
         }
 
