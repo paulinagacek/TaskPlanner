@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskPlanner;
 
 namespace TestTaskPlanner
 {
@@ -15,6 +16,9 @@ namespace TestTaskPlanner
         public TaskPlannerForm()
         {
             InitializeComponent();
+            WeeklyScheduler weeklyScheduler = new WeeklyScheduler();
+            weeklyScheduler.Dock = DockStyle.Fill;
+            panel1.Controls.Add(weeklyScheduler);
             //this.DoubleBuffered = true;
         }
     }

@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.weeklyScheduler1 = new TaskPlanner.WeeklyScheduler();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // weeklyScheduler1
+            // panel1
             // 
-            this.weeklyScheduler1.Location = new System.Drawing.Point(42, 36);
-            this.weeklyScheduler1.Name = "weeklyScheduler1";
-            this.weeklyScheduler1.Size = new System.Drawing.Size(2000, 1182);
-            this.weeklyScheduler1.TabIndex = 0;
+            this.panel1.Location = new System.Drawing.Point(34, 34);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(2013, 1173);
+            this.panel1.TabIndex = 0;
             // 
             // TaskPlannerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(2199, 1321);
-            this.Controls.Add(this.weeklyScheduler1);
+            this.ClientSize = new System.Drawing.Size(2101, 1321);
+            this.Controls.Add(this.panel1);
             this.Name = "TaskPlannerForm";
-            this.Text = "Form1";
+            this.Text = "Example project";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private TaskPlanner.WeeklyScheduler weeklyScheduler1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
