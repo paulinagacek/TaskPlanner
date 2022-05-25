@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TaskPlanner.Utils
 {
@@ -98,6 +99,27 @@ namespace TaskPlanner.Utils
                 return DayOfWeek.Sunday;
             }
             return DayOfWeek.Monday;
+        }
+
+        public int getHourFromSlotLabel(int slotId)
+        {
+            Regex rx = new Regex(@"(?<digit>\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            int hour = Int32.Parse(rx.Matches(getTimeSlots()[slotId - 1])[0].Groups["digit"].Value);
+            if(Regex.Match(getTimeSlots()[slotId - 1], "PM").Success)
+            {
+                hour += 12;
+            }
+            return hour;
+        }
+
+        public int getMinutesFromSlotLabel(int slotId)
+        {
+            if(!Regex.Match(getTimeSlots()[slotId - 1], ":").Success)
+            {
+                return 0;
+            }
+            Regex rx = new Regex(@"(?<digit>\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return Int32.Parse(rx.Matches(getTimeSlots()[slotId - 1])[1].Groups["digit"].Value);
         }
     }
 }

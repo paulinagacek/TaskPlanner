@@ -15,6 +15,7 @@ namespace TaskPlanner
             InitializeComponent();
             this.schedulerHandler = schedulerHandler;
             InitialiseCmbBoxes();
+            addedTask.dateSyntax = schedulerHandler.dateSyntax;
         }
 
         public AddTaskForm(SchedulerHandler schedulerHandler, int dayId, int StartId)
@@ -25,6 +26,7 @@ namespace TaskPlanner
             predefinedStartId = StartId;
             weekDayId = dayId;
             InitialiseCmbBoxes();
+            addedTask.dateSyntax = schedulerHandler.dateSyntax;
         }
         private void InitialiseCmbBoxes()
         {

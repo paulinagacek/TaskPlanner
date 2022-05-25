@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using TaskPlanner.Utils;
 
 namespace TaskPlanner
 {
@@ -11,13 +12,14 @@ namespace TaskPlanner
         int Weekday = 0; // from 1 to 7
         int TimeSlotStart = 0; // from 1 to 48
         int TimeSlotStop = 0; // from 1 to 48
+        public DateSyntax dateSyntax;
 
         static List<string> categories = new List<string>() { "Job", "House", "Hobby", "Health", "Sport" };
         static Dictionary<string, Color> categoryToColor = new Dictionary<string, Color>();
 
         public Task() { }
 
-        public Task(string title, string category, int weekDay, int start, int end)
+        public Task(string title, string category, int weekDay, int start, int end, DateSyntax dateSyntax)
         {
             if(categoryToColor.Count == 0)
             {
@@ -28,6 +30,7 @@ namespace TaskPlanner
             this.Weekday = weekDay;
             this.TimeSlotStart = start;
             this.TimeSlotStop = end;
+            this.dateSyntax = dateSyntax;
             ValidateData();
         }
 
@@ -80,6 +83,16 @@ namespace TaskPlanner
         public int getStartSlotId()
         {
             return TimeSlotStart;
+        }
+
+        public int getStartHour()
+        {
+            return dateSyntax.getHourFromSlotLabel(TimeSlotStart);
+        }
+
+        public int getStartMinutes()
+        {
+            return dateSyntax.getMinutesFromSlotLabel(TimeSlotStart);
         }
 
         public int getEndSlotId()

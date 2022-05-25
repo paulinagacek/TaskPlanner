@@ -64,14 +64,16 @@ namespace TaskPlanner
             label.Dock = DockStyle.Fill;
             label.BackColor = Task.getColorFromCategory(task.getCategory());
             label.Click += new EventHandler(this.OnTaskLabelClick);
+            //tbl_time_table.Visible = false;
 
-            for(int i = task.getStartSlotId(); i < task.getEndSlotId(); ++i)
+            for (int i = task.getStartSlotId(); i < task.getEndSlotId(); ++i)
             {
                 tbl_time_table.Controls.Remove(schedulerHandler.getEmptyLabel(
                     task.getWeekdayId()-1, i - 1));
             }
             tbl_time_table.Controls.Add(label, task.getWeekdayId(), task.getStartSlotId());
             tbl_time_table.SetRowSpan(label, task.getEndSlotId() - task.getStartSlotId());
+            //tbl_time_table.Visible = true;
             schedulerHandler.AddTaskLabel(task, label);
         }
 
@@ -164,7 +166,7 @@ namespace TaskPlanner
 
             System.Timers.Timer t = new System.Timers.Timer();
             t.Start();
-            t.Interval = 1000*60; // one tick per 1min
+            t.Interval = 10*60; // one tick per 1min
             t.Elapsed += OnTimeEvent;
         }
 

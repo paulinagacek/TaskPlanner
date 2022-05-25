@@ -19,7 +19,7 @@ namespace TaskPlanner
         public Dictionary<DayOfWeek, HashSet<Task>> WeekdayToSetOfTasks = new Dictionary<DayOfWeek, HashSet<Task>>();
 
         const string configFile = "C:\\Users\\pauli\\OneDrive\\Pulpit\\4tySEM\\TaskPlanner\\TaskPlanner\\Utils\\configDateSyntax.json";
-        DateSyntax dateSyntax;
+        public DateSyntax dateSyntax;
 
         public SchedulerHandler()
         {
@@ -154,12 +154,14 @@ namespace TaskPlanner
             {
                 int hour = currentTime.Hour;
                 int minute = currentTime.Minute;
-                foreach(Task task in WeekdayToSetOfTasks[currentDayOfWeek])
+                
+                foreach (Task task in WeekdayToSetOfTasks[currentDayOfWeek])
                 {
-                    if(hour == (task.getStartSlotId() - 1) / 2)
+                    System.Console.WriteLine("Hour: " + task.getStartHour());
+                    System.Console.WriteLine("Minutes: " + task.getStartMinutes());
+                    if (hour == task.getStartHour())
                     {
-                        if((minute == 0 && (task.getStartSlotId()-1) %2 == 0)
-                            || (minute == 30 && (task.getStartSlotId()-1) % 2 == 1))
+                        if((minute == task.getStartMinutes()))
                         {
                             WeekdayToSetOfTasks[currentDayOfWeek].Remove(task);
                             return task;
