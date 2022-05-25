@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,9 +51,10 @@
     <Compile Include="Forms\AddTaskForm.Designer.cs">
       <DependentUpon>AddTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DateSyntax.cs" />
+    <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Utils\SchedulerHandler.cs" />
     <Compile Include="Utils\Task.cs" />
-    <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="WeeklyScheduler.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,6 +71,10 @@
     <EmbeddedResource Include="WeeklyScheduler.resx">
       <DependentUpon>WeeklyScheduler.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Utils\configDateSyntax.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

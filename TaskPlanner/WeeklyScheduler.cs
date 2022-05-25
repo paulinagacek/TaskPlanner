@@ -13,22 +13,27 @@ namespace TaskPlanner
         public WeeklyScheduler()
         {
             InitializeComponent();
-            for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
-            {
-                tbl_time_table.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
-            }
-            for (int i = 1; i < schedulerHandler.getNrOfTimeSlots() + 1; i++)
-            {
-                tbl_time_table.Controls.Add(schedulerHandler.getTimeSlotLabel(i - 1), 0, i);
-            }
-            InitialiseEmptyLabelsOnGrid();
+            InitialiseLabelsOnGrid();
             instance = this;
             //this.DoubleBuffered = true;
         }
 
-        public void InitialiseEmptyLabelsOnGrid()
+        public void InitialiseLabelsOnGrid()
         {
-            for(int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
+            tbl_time_table.RowCount = schedulerHandler.getNrOfTimeSlots() + 1;
+            tbl_time_table.ColumnCount = schedulerHandler.getNrOfDays() + 1;
+
+            for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
+            {
+                tbl_time_table.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
+            }
+
+            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
+            {
+                tbl_time_table.Controls.Add(schedulerHandler.getTimeSlotLabel(i - 1), 0, i);
+            }
+
+            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
             {
                 List<Label> emptyLabelRow = new List<Label>();
                 for(int j = 1; j <= schedulerHandler.getNrOfDays(); j++)

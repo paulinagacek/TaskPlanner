@@ -18,11 +18,12 @@ namespace TaskPlanner
         public DateTime currentDateTime = DateTime.Now;
         public Dictionary<DayOfWeek, HashSet<Task>> WeekdayToSetOfTasks = new Dictionary<DayOfWeek, HashSet<Task>>();
 
-        int NrOfDays = 7;
-        int NrOfTimeSlots = 48;
+        const string configFile = "C:\\Users\\pauli\\OneDrive\\Pulpit\\4tySEM\\TaskPlanner\\TaskPlanner\\Utils\\configDateSyntax.json";
+        DateSyntax dateSyntax;
 
         public SchedulerHandler()
         {
+            dateSyntax = JsonExtensions.ToObject<DateSyntax>(JsonExtensions.ReadFileToString(configFile));
             InitialiseWeekdaysLabels();
             InitialiseTimeSLots();
             Task.InitialiseCategoriesColors();
@@ -30,7 +31,7 @@ namespace TaskPlanner
 
         private void InitialiseWeekdaysLabels()
         {
-            foreach(var day in DateUtils.getWeekdays())
+            foreach(var day in dateSyntax.getWeekdays())
             {
                 Label label = new Label();
                 label.Text = day.ToString();
@@ -40,7 +41,7 @@ namespace TaskPlanner
 
         private void InitialiseTimeSLots()
         {
-            foreach (var time in DateUtils.getTimeSlots())
+            foreach (var time in dateSyntax.getTimeSlots())
             {
                 Label timeLabel = new Label();
                 timeLabel.Text = time.ToString();
@@ -50,12 +51,12 @@ namespace TaskPlanner
 
         internal string getTimeSlotString(int slotId)
         {
-            return DateUtils.getTimeSlots()[slotId];
+            return dateSyntax.getTimeSlots()[slotId];
         }
 
         public string getDayString(int dayId)
         {
-            return DateUtils.getWeekdays()[dayId];
+            return dateSyntax.getWeekdays()[dayId];
         }
 
         public Label getWeekdayLabel(int index)
@@ -86,7 +87,7 @@ namespace TaskPlanner
         private void AddTaskToWeekdayToTaskSetDict(Task task)
         {
             string weekDay = getWeekdays()[task.getWeekdayId() - 1];
-            DayOfWeek dayOfWeek = DateUtils.getDayOfTheWeekFromString(weekDay);
+            DayOfWeek dayOfWeek = dateSyntax.getDayOfTheWeekFromString(weekDay);
             if (WeekdayToSetOfTasks.ContainsKey(dayOfWeek)){
                 WeekdayToSetOfTasks[dayOfWeek].Add(task);
             }
@@ -103,12 +104,12 @@ namespace TaskPlanner
 
         public List<string> getWeekdays()
         {
-            return DateUtils.getWeekdays();
+            return dateSyntax.getWeekdays();
         }
 
         public List<string> getTimeSlots()
         {
-            return DateUtils.getTimeSlots();  
+            return dateSyntax.getTimeSlots();  
         }
 
         public void deleteTaskAndAssociatedLabel(Label label)
@@ -120,7 +121,7 @@ namespace TaskPlanner
                 {
                     taskToLabel.Remove(task);
                     tasks.Remove(task);
-                    DayOfWeek dayOfWeek = DateUtils.getDayOfTheWeekFromId(task.getWeekdayId());
+                    DayOfWeek dayOfWeek = dateSyntax.getDayOfTheWeekFromId(task.getWeekdayId());
                     if(WeekdayToSetOfTasks.ContainsKey(dayOfWeek) && WeekdayToSetOfTasks[dayOfWeek].Contains(task))
                     {
                         WeekdayToSetOfTasks[dayOfWeek].Remove(task);
@@ -175,12 +176,12 @@ namespace TaskPlanner
 
         public int getNrOfDays()
         {
-            return NrOfDays;
+            return dateSyntax.getNrOfWeekdays();
         }
 
         public int getNrOfTimeSlots()
         {
-            return NrOfTimeSlots;
+            return dateSyntax.getNrOfTimeSlots();
         }
     }
 }
