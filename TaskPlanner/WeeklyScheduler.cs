@@ -22,10 +22,11 @@ namespace TaskPlanner
         {
             tbl_time_table.RowCount = schedulerHandler.getNrOfTimeSlots() + 1;
             tbl_time_table.ColumnCount = schedulerHandler.getNrOfDays() + 1;
+            tableLayout_headers.ColumnCount = schedulerHandler.getNrOfDays() + 1;
 
             for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
             {
-                tbl_time_table.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
+                tableLayout_headers.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
             }
 
             for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
@@ -183,6 +184,16 @@ namespace TaskPlanner
                     Console.WriteLine("No tasks for: "+ DateTime.Now);
                 }
             }));
+        }
+
+        private void tbl_time_table_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayout_headers_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
