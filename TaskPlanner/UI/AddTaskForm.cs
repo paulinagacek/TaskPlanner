@@ -79,6 +79,33 @@ namespace TaskPlanner
             return true;
         }
 
+        private bool IsTimeSLotFree()
+        {
+            foreach(Task task in schedulerHandler.getTasks())
+            {
+                if(task.getWeekdayId() == addedTask.getWeekdayId())
+                {
+                    if(task.getStartSlotId() == addedTask.getStartSlotId())
+                    {
+                        return false;
+                    }
+                    if (task.getEndSlotId() == addedTask.getEndSlotId())
+                    {
+                        return false;
+                    }
+                    if(task.getStartSlotId() <= addedTask.getStartSlotId() && task.getEndSlotId() >= addedTask.getEndSlotId())
+                    {
+                        return false;
+                    }
+                    if (task.getStartSlotId() >= addedTask.getStartSlotId() && task.getEndSlotId() <= addedTask.getEndSlotId())
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         private void txtBox_taskTitle_TextChanged_1(object sender, EventArgs e)
         {
             addedTask.setTitle(txtBox_taskTitle.Text);
@@ -110,8 +137,15 @@ namespace TaskPlanner
             {
                 if(addedTask.getStartSlotId() < addedTask.getEndSlotId())
                 {
-                    schedulerHandler.AddTask(addedTask);
-                    this.Close();
+                    if (IsTimeSLotFree())
+                    {
+                        schedulerHandler.AddTask(addedTask);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is already other task planned for provided time slot");
+                    }
                 }
                 else if (addedTask.getStartSlotId() == addedTask.getEndSlotId())
                 {

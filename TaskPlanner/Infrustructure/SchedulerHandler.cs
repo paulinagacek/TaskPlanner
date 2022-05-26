@@ -188,5 +188,10 @@ namespace TaskPlanner
         {
             return dateSyntax.getNrOfTimeSlots();
         }
+
+        public List<Task> getTasks()
+        {
+            return tasks;
+        }
     }
 }

@@ -43,10 +43,8 @@ namespace TaskPlanner
             for (int i = task.getStartSlotId(); i < task.getEndSlotId(); ++i)
             {
                 tbl_time_table.Controls.Remove(schedulerHandler.getEmptyLabel(task.getWeekdayId()-1, i));
-                System.Console.WriteLine("Control removed from: " + (task.getWeekdayId() - 1 )+ ", " + i);
             }
             tbl_time_table.Controls.Add(label, task.getWeekdayId(), task.getStartSlotId());
-            System.Console.WriteLine("Control added at " + task.getWeekdayId() + ", " + task.getStartSlotId());
             tbl_time_table.SetRowSpan(label, task.getEndSlotId() - task.getStartSlotId());
         }
 
@@ -173,7 +171,6 @@ namespace TaskPlanner
                     label.Click += new EventHandler(this.OnEmptykLabelClick);
                     panel.Controls.Add(label, j, i);
                     emptyLabelRow.Add(label);
-                    System.Console.WriteLine("Control added at: " + j + ", " + i);
                 }
                 schedulerHandler.emptyLabels.Add(emptyLabelRow);
             }
