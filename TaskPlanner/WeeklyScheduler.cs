@@ -15,41 +15,15 @@ namespace TaskPlanner
             InitializeComponent();
             InitialiseLabelsOnGrid();
             instance = this;
-            //this.DoubleBuffered = true;
         }
 
         public void InitialiseLabelsOnGrid()
         {
-            tbl_time_table.RowCount = schedulerHandler.getNrOfTimeSlots() + 1;
-            tbl_time_table.ColumnCount = schedulerHandler.getNrOfDays() + 1;
-            tableLayout_headers.ColumnCount = schedulerHandler.getNrOfDays() + 1;
-
-            for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
-            {
-                tableLayout_headers.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
-            }
-
-            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
-            {
-                tbl_time_table.Controls.Add(schedulerHandler.getTimeSlotLabel(i - 1), 0, i);
-            }
-
-            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
-            {
-                List<Label> emptyLabelRow = new List<Label>();
-                for(int j = 1; j <= schedulerHandler.getNrOfDays(); j++)
-                {
-                    Label label = new Label();
-                    label.Dock = DockStyle.Fill;
-                    label.BackColor = Color.Transparent;
-                    label.Click += new EventHandler(this.OnEmptykLabelClick);
-                    //label.MouseHover += new EventHandler(this.OnMouseHover);
-                    //label.MouseLeave += new EventHandler(this.OnMouseLeave);
-                    tbl_time_table.Controls.Add(label, j, i);
-                    emptyLabelRow.Add(label);
-                }
-                schedulerHandler.emptyLabels.Add(emptyLabelRow);
-            }
+            tbl_time_table.Visible = false;
+            PaintWeekdaysLabel(tableLayout_headers);
+            PaintTimeSlotLabels(tbl_time_table);
+            PaintEmptyLabels(tbl_time_table);
+            tbl_time_table.Visible = true;
         }
 
         private void btn_add_task_Click(object sender, System.EventArgs e)
@@ -186,14 +160,44 @@ namespace TaskPlanner
             }));
         }
 
-        private void tbl_time_table_Paint(object sender, PaintEventArgs e)
+        private void PaintWeekdaysLabel( TableLayoutPanel headers)
         {
-
+            tableLayout_headers.ColumnCount = schedulerHandler.getNrOfDays() + 1;
+            for (int i = 1; i <= schedulerHandler.getNrOfDays(); i++)
+            {
+                tableLayout_headers.Controls.Add(schedulerHandler.getWeekdayLabel(i - 1), i, 0);
+            }
         }
 
-        private void tableLayout_headers_Paint(object sender, PaintEventArgs e)
+        private void PaintTimeSlotLabels(TableLayoutPanel panel)
         {
-
+            panel.RowCount = schedulerHandler.getNrOfTimeSlots();
+            panel.ColumnCount = schedulerHandler.getNrOfDays() + 1;
+            for (int i = 0; i < schedulerHandler.getNrOfTimeSlots(); i++)
+            {
+                panel.Controls.Add(schedulerHandler.getTimeSlotLabel(i), 0, i);
+            }
         }
+
+        private void PaintEmptyLabels(TableLayoutPanel panel)
+        {
+            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
+            {
+                List<Label> emptyLabelRow = new List<Label>();
+                for (int j = 1; j <= schedulerHandler.getNrOfDays(); j++)
+                {
+                    Label label = new Label();
+                    label.Dock = DockStyle.Fill;
+                    label.BackColor = Color.Transparent;
+                    label.Click += new EventHandler(this.OnEmptykLabelClick);
+                    //label.MouseHover += new EventHandler(this.OnMouseHover);
+                    //label.MouseLeave += new EventHandler(this.OnMouseLeave);
+                    panel.Controls.Add(label, j, i);
+                    emptyLabelRow.Add(label);
+                }
+                schedulerHandler.emptyLabels.Add(emptyLabelRow);
+            }
+        }
+
     }
 }

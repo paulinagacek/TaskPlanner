@@ -66,7 +66,7 @@
             this.btn_add_task.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_add_task.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_add_task.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_add_task.Location = new System.Drawing.Point(1820, 6);
+            this.btn_add_task.Location = new System.Drawing.Point(1820, -12);
             this.btn_add_task.Name = "btn_add_task";
             this.btn_add_task.Size = new System.Drawing.Size(86, 98);
             this.btn_add_task.TabIndex = 1;
@@ -154,7 +154,6 @@
             this.tbl_time_table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 1.939858F));
             this.tbl_time_table.Size = new System.Drawing.Size(1942, 2686);
             this.tbl_time_table.TabIndex = 3;
-            this.tbl_time_table.Paint += new System.Windows.Forms.PaintEventHandler(this.tbl_time_table_Paint);
             // 
             // tableLayout_headers
             // 
@@ -169,13 +168,12 @@
             this.tableLayout_headers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.87129F));
             this.tableLayout_headers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.87129F));
             this.tableLayout_headers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tableLayout_headers.Location = new System.Drawing.Point(3, 110);
+            this.tableLayout_headers.Location = new System.Drawing.Point(-8, 110);
             this.tableLayout_headers.Name = "tableLayout_headers";
             this.tableLayout_headers.RowCount = 1;
             this.tableLayout_headers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout_headers.Size = new System.Drawing.Size(1941, 80);
+            this.tableLayout_headers.Size = new System.Drawing.Size(1974, 58);
             this.tableLayout_headers.TabIndex = 3;
-            this.tableLayout_headers.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayout_headers_Paint);
             // 
             // WeeklyScheduler
             // 
