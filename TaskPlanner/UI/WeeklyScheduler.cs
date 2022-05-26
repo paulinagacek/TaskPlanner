@@ -39,17 +39,15 @@ namespace TaskPlanner
             label.Dock = DockStyle.Fill;
             label.BackColor = Task.getColorFromCategory(task.getCategory());
             label.Click += new EventHandler(this.OnTaskLabelClick);
-            //tbl_time_table.Visible = false;
 
             for (int i = task.getStartSlotId(); i < task.getEndSlotId(); ++i)
             {
-                tbl_time_table.Controls.Remove(schedulerHandler.getEmptyLabel(
-                    task.getWeekdayId()-1, i - 1));
+                tbl_time_table.Controls.Remove(schedulerHandler.getEmptyLabel(task.getWeekdayId()-1, i));
+                System.Console.WriteLine("Control removed from: " + (task.getWeekdayId() - 1 )+ ", " + i);
             }
             tbl_time_table.Controls.Add(label, task.getWeekdayId(), task.getStartSlotId());
+            System.Console.WriteLine("Control added at " + task.getWeekdayId() + ", " + task.getStartSlotId());
             tbl_time_table.SetRowSpan(label, task.getEndSlotId() - task.getStartSlotId());
-            //tbl_time_table.Visible = true;
-            schedulerHandler.AddTaskLabel(task, label);
         }
 
         public void undrawTask(Label label)
@@ -58,8 +56,7 @@ namespace TaskPlanner
             Task task = schedulerHandler.getTaskFromLabel(label);
             for (int i = task.getStartSlotId(); i < task.getEndSlotId(); ++i)
             {
-                tbl_time_table.Controls.Add(schedulerHandler.getEmptyLabel(
-                    task.getWeekdayId() - 1, i - 1));
+                tbl_time_table.Controls.Add(schedulerHandler.getEmptyLabel(task.getWeekdayId() - 1, i));
             }
             schedulerHandler.deleteTaskAndAssociatedLabel(label);
         }
@@ -97,7 +94,7 @@ namespace TaskPlanner
                 {
                     if(schedulerHandler.emptyLabels[i][j] == label)
                     {
-                        return i + 1;
+                        return i;
                     }
                 }
             }
@@ -118,22 +115,6 @@ namespace TaskPlanner
             }
             return -1;
         }
-
-        private void OnMouseHover(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            clickedLabel.BackColor = Color.White;
-            clickedLabel.Text = "+";
-            clickedLabel.Font = new Font("Arial", 12);
-        }
-
-        private void OnMouseLeave(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            clickedLabel.BackColor = Color.Transparent;
-            clickedLabel.Text = "";
-        }
-
         private void WeeklyScheduler_Load(object sender, EventArgs e)
         {
             DayOfWeek wk = DateTime.Today.DayOfWeek;
@@ -141,7 +122,7 @@ namespace TaskPlanner
 
             System.Timers.Timer t = new System.Timers.Timer();
             t.Start();
-            t.Interval = 10*60; // one tick per 1min
+            t.Interval = 1000*60; // one tick per 1min
             t.Elapsed += OnTimeEvent;
         }
 
@@ -181,7 +162,7 @@ namespace TaskPlanner
 
         private void PaintEmptyLabels(TableLayoutPanel panel)
         {
-            for (int i = 1; i <= schedulerHandler.getNrOfTimeSlots(); i++)
+            for (int i = 0; i < schedulerHandler.getNrOfTimeSlots(); i++)
             {
                 List<Label> emptyLabelRow = new List<Label>();
                 for (int j = 1; j <= schedulerHandler.getNrOfDays(); j++)
@@ -190,14 +171,12 @@ namespace TaskPlanner
                     label.Dock = DockStyle.Fill;
                     label.BackColor = Color.Transparent;
                     label.Click += new EventHandler(this.OnEmptykLabelClick);
-                    //label.MouseHover += new EventHandler(this.OnMouseHover);
-                    //label.MouseLeave += new EventHandler(this.OnMouseLeave);
                     panel.Controls.Add(label, j, i);
                     emptyLabelRow.Add(label);
+                    System.Console.WriteLine("Control added at: " + j + ", " + i);
                 }
                 schedulerHandler.emptyLabels.Add(emptyLabelRow);
             }
         }
-
     }
 }

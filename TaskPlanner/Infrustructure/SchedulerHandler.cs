@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using TaskPlanner.Utils;
 
@@ -18,12 +19,14 @@ namespace TaskPlanner
         public DateTime currentDateTime = DateTime.Now;
         public Dictionary<DayOfWeek, HashSet<Task>> WeekdayToSetOfTasks = new Dictionary<DayOfWeek, HashSet<Task>>();
 
-        const string configFile = "C:\\Users\\pauli\\OneDrive\\Pulpit\\4tySEM\\TaskPlanner\\TaskPlanner\\Utils\\configDateSyntax.json";
+        string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+        const string configFile = "\\TaskPlanner\\Domain\\configDateSyntax.json";
+
         public DateSyntax dateSyntax;
 
         public SchedulerHandler()
         {
-            dateSyntax = JsonExtensions.ToObject<DateSyntax>(JsonExtensions.ReadFileToString(configFile));
+            dateSyntax = JsonExtensions.ToObject<DateSyntax>(JsonExtensions.ReadFileToString(projectDirectory + configFile));
             InitialiseWeekdaysLabels();
             InitialiseTimeSLots();
             Task.InitialiseCategoriesColors();

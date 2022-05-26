@@ -7,7 +7,7 @@ namespace TaskPlanner
     {
         SchedulerHandler schedulerHandler;
         Task addedTask = new Task();
-        int predefinedStartId = 0;
+        int predefinedStartId = -1;
         int weekDayId = 0;
 
         public AddTaskForm(SchedulerHandler schedulerHandler)
@@ -55,10 +55,10 @@ namespace TaskPlanner
             cmbBox_start.Text = "";
             cmbBox_end.Text = "";
 
-            if(predefinedStartId != 0)
+            if(predefinedStartId >= 0)
             {
-                cmbBox_start.Text = schedulerHandler.getTimeSlotString(predefinedStartId-1);
-                cmbBox_end.Text = schedulerHandler.getTimeSlotString(predefinedStartId);
+                cmbBox_start.Text = schedulerHandler.getTimeSlotString(predefinedStartId);
+                cmbBox_end.Text = schedulerHandler.getTimeSlotString(predefinedStartId+1);
                 cmbBox_day.Text = schedulerHandler.getDayString(weekDayId - 1);
             }
         }
@@ -72,7 +72,7 @@ namespace TaskPlanner
             {
                 return false;
             }
-            if (addedTask.getEndSlotId() == 0 || addedTask.getStartSlotId() == 0 || addedTask.getWeekdayId() == 0)
+            if (addedTask.getEndSlotId() == -1 || addedTask.getStartSlotId() == -1 || addedTask.getWeekdayId() == 0)
             {
                 return false;
             }
@@ -96,12 +96,12 @@ namespace TaskPlanner
 
         private void cmbBox_start_SelectedIndexChanged(object sender, EventArgs e)
         {
-            addedTask.setStartId(cmbBox_start.SelectedIndex + 1);
+            addedTask.setStartId(cmbBox_start.SelectedIndex);
         }
 
         private void cmbBox_end_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            addedTask.setEndId(cmbBox_end.SelectedIndex + 1);
+            addedTask.setEndId(cmbBox_end.SelectedIndex);
         }
 
         private void btn_saveTask_Click_1(object sender, EventArgs e)
